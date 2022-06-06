@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'screen/dashboard.dart';
-import 'screen/login.dart';
-import 'screen/register.dart';
+import '../screen/dashboard.dart';
+import '../screen/login.dart';
+import '../screen/register.dart';
 
 void main() {
   runApp(

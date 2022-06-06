@@ -1,4 +1,8 @@
+import 'package:batch28_api_starter/repository/userrepo.dart';
+import 'package:batch28_api_starter/utils/showmessage.dart';
 import 'package:flutter/material.dart';
+
+import '../model/user.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
@@ -16,7 +20,27 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
+
+  _registerUser(User user) async{
+    bool isRegister = await UserRepo().registerUser(user);
+    if(isRegister){
+      _displayMessage(true);
+    }
+    else{
+      _displayMessage(false);
+    }
+  }
+  _displayMessage(bool isRegister){
+    if(isRegister){
+      displaySuccessMessage(context, "Register Successful");
+    }
+    else{
+      displayErrorMessage(context, "Register Failed");
+    }
+  }
   @override
+  
+
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 253, 250, 221),
@@ -135,14 +159,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ElevatedButton(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      // User user = User(
-                      //   email: _emailController.text,
-                      //   address: _addressController.text,
-                      //   country: _countryController.text,
-                      //   phone: _phoneController.text,
-                      //   username: _usernameController.text,
-                      //   password: _passwordController.text,
-                      // );
+                      User user = User(
+                        email: _emailController.text,
+                        address: _addressController.text,
+                        country: _countryController.text,
+                        phone: _phoneController.text,
+                        username: _usernameController.text,
+                        password: _passwordController.text,
+                      );
+                      _registerUser(user);
                     }
                   },
                   child: const Text(
